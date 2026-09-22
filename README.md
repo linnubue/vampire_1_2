@@ -1,6 +1,6 @@
 # VAMPIRE
 
-This repository contains code and documentation for the VAMPIRE projects o
+This repository contains code and documentation for the VAMPIRE projects on
 Polarstern cruises PS144 and PS149 with similar instrument setups.
 
 The repository contains the code that is used during the cruise and for
