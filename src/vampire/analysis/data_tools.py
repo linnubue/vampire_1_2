@@ -683,9 +683,9 @@ def compute_error_profiles(x, x_o, which_axis=0, height_axis=-1, compute_stddev=
     x_o = x_o[no_nan_idx,:]
     x = x[no_nan_idx,:]
 
-    error_dict['rmse'] = compute_RMSE_profile(x, x_o, which_axis=0)
+    error_dict['rmse'] = compute_RMSE_profile(x, x_o, which_axis=which_axis)
     error_dict['bias'] = np.nanmean(x - x_o, axis=0)
-    error_dict['stddev'] = compute_RMSE_profile(x - error_dict['bias'], x_o, which_axis=0)
+    error_dict['stddev'] = compute_RMSE_profile(x - error_dict['bias'], x_o, which_axis=which_axis)
 
     x_mean = np.nanmean(x_o, axis=0)
     error_dict['rmse_rel'] = error_dict['rmse'] / x_mean
