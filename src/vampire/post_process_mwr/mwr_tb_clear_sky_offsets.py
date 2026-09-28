@@ -71,9 +71,8 @@ def main():
         check_for_nans(sonde_dict)
 
         for sonde_data in sonde_dict.values():
-            pam = run_pamtra_run(sonde_data, freqs[freq_label], path_pam_output[freq_label], **pamtra_settings)
-        print("Simulations are done. Activating self destruct.")
-        1/0
+            run_pamtra_run(sonde_data, freqs[freq_label], path_pam_output[freq_label], **pamtra_settings)
+        sys.exit("Simulations are done. Activating self destruct. Exit code:0")
     
     compare_simulated_and_observed_tbs(path_data, path_pam_output, path_output, path_plot, campaign, mwr_version,
                                        Constants,
