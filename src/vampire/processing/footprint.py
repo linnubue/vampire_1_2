@@ -239,7 +239,7 @@ def main():
 
     da_tb = ds.TBs
 
-    da_corr = make_correlation(da_img, da_tb)
+    make_correlation(da_img, da_tb)
 
 
 def gopro2da(times):
