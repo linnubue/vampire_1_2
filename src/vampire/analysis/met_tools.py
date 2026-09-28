@@ -425,6 +425,8 @@ def wspeed_wdir_to_u_v(
 
         u = np.sin(wdir_rad)*wspeed
         v = np.cos(wdir_rad)*wspeed
+    else:
+        raise ValueError(f"convention = '{convention}' is not a valid option! Use 'towards' or 'from' instead.")
 
     return u, v
 
@@ -530,6 +532,9 @@ def potential_temperature(
     elif press.shape == temp.shape:
         theta = temp*(press_sfc/press)**(R_d/c_pd)
 
+    else:
+        raise ValueError("Dimensions of pressure and temperature do not match!")
+
     return theta
 
 
@@ -562,6 +567,9 @@ def e_sat(
     elif which_algo == 'goff_and_gratch':
         e_sat_gg_water = 100 * 1013.246 * 10**(-7.90298*(373.16/temp-1) + 5.02808*np.log10(
                 373.16/temp) - 1.3816e-7*(10**(11.344*(1-temp/373.16))-1) + 8.1328e-3 * (10**(-3.49149*(373.16/temp-1))-1))
+
+    else:
+        raise ValueError(f"which_algo = '{which_algo}' is not a valid option! Use 'hyland_and_wexler' or 'goff_and_gratch' instead.")
 
     return e_sat_gg_water
 
