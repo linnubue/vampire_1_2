@@ -51,8 +51,8 @@ def compute_IWV(
         # if the pressure data is okay until 300 hPa, compute IWV nonetheless and truncate the
         # profile beyond:
         where_broken = np.where(np.diff(z) < 0)[0]      # when where_broken == 152, then z[153] - z[152] is broken
-        if z[where_broken[0]] < 9000.0: # then, sufficient altitude doesn't have valid data valid data, return IWV=nan
-            return IWV
+        if z[where_broken[0]] < 9000.0: # then, sufficient altitude doesn't have valid data, return IWV=nan
+            return None
 
     # truncate data to non nan height or pressure levels:
     non_nan_idx = np.where(~np.isnan(z))[0]
@@ -61,7 +61,7 @@ def compute_IWV(
     # check if height axis is free of gaps:
     if np.any(np.isnan(np.diff(z))): 
         print("Height axis contains gaps. Aborted IWV computation.")
-        return IWV
+        return None
 
 
     n_height = len(z)
