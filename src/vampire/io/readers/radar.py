@@ -56,7 +56,7 @@ def read_all_times(instrument):
 
     return ds
 
-
+#TODO: Docstring does not match arguments
 def read_radar(
     instrument, chirp_program=None, date=None, hourly=False, tb_only=False, ze_only=False,
 ):
@@ -106,6 +106,7 @@ def read_radar(
     )
 
     # the following files have a bad time format
+    #TODO: Is this list complete? Maybe this is better placed in a config file
     drop_files = ["240831_090000_P09_ZEN.LV1.NC"]
     files = [f for f in files if os.path.basename(f) not in drop_files]
 
