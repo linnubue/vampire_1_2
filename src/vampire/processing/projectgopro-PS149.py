@@ -14,7 +14,6 @@ import xarray as xr
 import pandas as pd
 from datetime import datetime, timedelta
 import time
-import matplotlib.pyplot as plt
 import glob as glob
 import os
 import numpy as np
@@ -85,6 +84,7 @@ def main():
 #            
             print(date, " currently not processed because the mounting angle is not known (yet?)")
         else:
+            #TODO: This is not used anywhere? Should this stay for documentation?
             mounting_angle = 37 # this is how the camera is mounted relative to the ship
 
             print(date)
