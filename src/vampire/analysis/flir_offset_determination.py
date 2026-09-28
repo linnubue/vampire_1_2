@@ -250,7 +250,7 @@ def add_flir_TBs(surface_temp_ds: xr.Dataset, dates_icestation: list, campaign_n
         tb_mean = flir_ds.tb_mean.values[index_colloc]
         tb_std = flir_ds.tb_std.values[index_colloc]
 
-        flir_ds = flir_ds.close()
+        flir_ds.close()
         surface_temp_ds["tb_flir_center"][k] = tb
         surface_temp_ds["tb_flir_mean"][k] = tb_mean
         surface_temp_ds["tb_flir_std"][k] = tb_std
@@ -1111,7 +1111,7 @@ def export_offset_ds(DS: xr.Dataset, path_output: str, campaign_name: str):
     outfile = path_output + filename
     
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 
