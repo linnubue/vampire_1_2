@@ -517,7 +517,7 @@ def potential_temperature(
         else:
             # build new shape list
             press_shape_new = list()
-            for k in range(temp.ndim): press_shape_new.append(1)
+            press_shape_new += press_shape_new + [1] * temp.ndim
             press_shape_new[height_axis] = temp.shape[height_axis]
             press = np.reshape(press, press_shape_new)
 
