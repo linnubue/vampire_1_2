@@ -1,5 +1,4 @@
 import xarray as xr
-from vampire.constants import Constants
 from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
@@ -83,7 +82,7 @@ flag_masks = np.array([1, 2, 4, 8, 16, 32, 64, 128, 256, 512], dtype=np.int16)
 new_flag_masks = np.array([1024, 2048], dtype=np.int16)
 flag_masks = np.concatenate((flag_masks, new_flag_masks))
 
-def set_flags()
+def set_flags():
     all_hapro_files = glob.glob('PS144hatpro_mwrpro_sfc/*.nc')
     for file in all_hapro_files:
         ds = xr.open_dataset(file)
@@ -106,7 +105,7 @@ def set_flags()
             ds["flag"] = ds["flag"].where(~mask2, ds["flag"] | 2048)
         ds.to_netcdf(f"flagged/{filename}")     
         
-    all_mirac_files = glob.glob(f'PS144mirac_mwrpro_sfc/*.nc'')
+    all_mirac_files = glob.glob(f'PS144mirac_mwrpro_sfc/*.nc')
     for file in all_mirac_files:
 
         ds = xr.open_dataset(file)

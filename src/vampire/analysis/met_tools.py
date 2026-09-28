@@ -467,11 +467,11 @@ def u_v_to_wspeed_wdir(
         u *= (-1.0)
         v *= (-1.0)
 
-    # distinguish the two semi circles to compute the correct wind direction:
+    # distinguish the two semicircles to compute the correct wind direction:
     u_greater_0 = np.where(u >= 0)[0]
     u_smaller_0 = np.where(u < 0)[0]
 
-    # compute wind direction based on the semi circle:
+    # compute wind direction based on the semicircle:
     wdir = np.zeros(u.shape)
     wdir[u_greater_0] = np.arccos(v[u_greater_0] / wspeed[u_greater_0])
     wdir[u_smaller_0] = 2.0*np.pi - np.arccos(v[u_smaller_0] / wspeed[u_smaller_0])
