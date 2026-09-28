@@ -158,50 +158,32 @@ def main():
             im=Image.open(file)
             if im.mode == "RGB": ##add transparancy channel
                 a_channel = Image.new('L', im.size, 255)   # 'L' 8-bit pixels, black and white 
-            im.putalpha(a_channel)
+                im.putalpha(a_channel)
             im = np.asarray(im)
 
             output_path = f"{out}/{filename[:-4]}_proj.tiff"
-            if overwrite == False:
-                if os.path.isfile(output_path):
-                    print("file exists already")
-                else:
-                    j = im.copy()
-                    ##make railing transparent
-                    j[700:,:,3] = 0
-                    j[520:620,750:,3] = 0
-                    j[420:520,830:,3] = 0
-                    j[520:700,840:,3] = 0
-                    j[620:700,750:800,3] = 0
-                    j[660:700,800:840,3] = 0
-                    top_im = cam.getTopViewOfImage(j,[-25,15,12,50],do_plot=False) ##actual projection
-                    j = Image.fromarray(top_im)
-                 #   plt.show()
-                    j.convert("RGBA").save(output_path, compression="lzma") ##saves projected image and compresses
-
-                    ##write metadata:
-                    lat_ref = 'N' if lat >= 0 else 'S' 
-                    lon_ref = 'E' if lon >= 0 else 'W'
-                    subprocess.run([ 'exiftool',  f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}', f'-GPSLatitudeRef={lat_ref}', 
-                                    f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original', output_path ], check=True)
+            if os.path.isfile(output_path) and not overwrite:
+                print("file exists already")
             else:
                 j = im.copy()
                 ##make railing transparent
-                j[700:,:,3] = 0
-                j[520:620,750:,3] = 0
-                j[420:520,830:,3] = 0
-                j[520:700,840:,3] = 0
-                j[620:700,750:800,3] = 0
-                j[660:700,800:840,3] = 0
-                top_im = cam.getTopViewOfImage(j,[-25,15,12,50],do_plot=False) ##actual projection
+                j[700:, :, 3] = 0
+                j[520:620, 750:, 3] = 0
+                j[420:520, 830:, 3] = 0
+                j[520:700, 840:, 3] = 0
+                j[620:700, 750:800, 3] = 0
+                j[660:700, 800:840, 3] = 0
+                top_im = cam.getTopViewOfImage(j, [-25, 15, 12, 50], do_plot=False)  ##actual projection
                 j = Image.fromarray(top_im)
-             #   plt.show()
-                j.convert("RGBA").save(output_path, compression="lzma") ##saves projected image and compresses
+                j.convert("RGBA").save(output_path, compression="lzma")  ##saves projected image and compresses
                 ##write metadata:
-                lat_ref = 'N' if lat >= 0 else 'S' 
+                lat_ref = 'N' if lat >= 0 else 'S'
                 lon_ref = 'E' if lon >= 0 else 'W'
-                subprocess.run([ 'exiftool',  f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}', f'-GPSLatitudeRef={lat_ref}', 
-                                f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original', output_path ], check=True)
+                subprocess.run(
+                    ['exiftool', f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}',
+                     f'-GPSLatitudeRef={lat_ref}',
+                     f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original',
+                     output_path], check=True)
 
 if __name__ == "__main__":
     main()
