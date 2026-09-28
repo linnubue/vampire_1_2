@@ -78,7 +78,6 @@ def find_files(path_data: str, file_pattern: str, var: str, date_range=np.array(
     
         return files
     
-    files = list()
     files = find_files_subroutine(path_data, file_pattern.replace("var", var), date_range)
     
     if len(files) == 0:
@@ -99,8 +98,7 @@ def cut_time_dim(DS: xr.Dataset):
     
     data_vars = np.array(DS.data_vars)
     is_error_var = np.asarray(['_rmse' in dv for dv in data_vars])
-    idx_error_var = np.where(is_error_var)[0]
-    
+
     if np.any(is_error_var):
         idx_error_var = np.where(is_error_var)[0]
         time_invariant_error_var = np.asarray([data_vars[idx] for idx in idx_error_var if 

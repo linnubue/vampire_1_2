@@ -24,7 +24,6 @@ def read_pamtra_simulation_all():
 
     ix = ~np.isin(times, np.array(Constants.PS144_BAD_SONDES).astype("datetime64"))
     times = times[ix]
-    files = files[ix]
 
     lst_s = []
     lst_h = []
@@ -190,7 +189,7 @@ def read_radiosonde(date=None, file=None, index_col="height"):
     return df
 
 
-def read_radiosondes(path: str, date_range=np.array([]), wind_uv=False):
+def read_radiosondes(date_range=np.array([]), wind_uv=False):
     files, _ = get_radiosondes(date_range=date_range)
     
     rs_dict = import_radiosondes_PS144_txt(files)
@@ -248,7 +247,6 @@ def import_radiosondes_PS144_txt(files, add_info=False, add_loc_info=False):
         files
     )  # just a preliminary assumption of the amount of radiosondes
     n_data_per_sonde = 12000  # assumption of max. time (data) points per sonde
-    reftime = dt.datetime(1970, 1, 1)
 
     # the radiosonde dict will be structured as follows:
     # rs_dict['0'] contains all data from the first radiosonde: rs_dict['0']['temp'] contains temperature
@@ -445,7 +443,6 @@ def import_radiosondes_PS131_txt(files, add_info=False, add_loc_info=False):
         files
     )  # just a preliminary assumption of the amount of radiosondes
     n_data_per_sonde = 12000  # assumption of max. time (data) points per sonde
-    reftime = dt.datetime(1970, 1, 1)
 
     # the radiosonde dict will be structured as follows:
     # rs_dict['0'] contains all data from the first radiosonde: rs_dict['0']['temp'] contains temperature
@@ -653,7 +650,6 @@ def import_radiosondes_MOSAIC_blendedprofiles_txt(files, add_loc_info=False):
         files
     )  # just a preliminary assumption of the amount of radiosondes
     n_data_per_sonde = 12000  # assumption of max. time (data) points per sonde
-    reftime = dt.datetime(1970, 1, 1)
 
     # the radiosonde dict will be structured as follows:
     # rs_dict['0'] contains all data from the first radiosonde: rs_dict['0']['temp'] contains temperature
