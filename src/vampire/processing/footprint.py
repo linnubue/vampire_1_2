@@ -126,11 +126,6 @@ def main_vampire():
 
     ds_ir = read_flir_csv(date, find_times=ds_tb.time.values)       # comment: no longer exists
 
-    time_gopro = get_all_times()
-    gopro_match = np.isin(time_gopro, ds_tb.time.values)
-    time_gopro_match = time_gopro[gopro_match]
-    da_vis = gopro2da(time_gopro_match)
-
     # keep only unique flir times (decimal seconds where dropped)
     _, ix = np.unique(ds_ir["time"].values, return_index=True)
     ds_ir = ds_ir.isel(time=ix)
