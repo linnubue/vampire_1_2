@@ -111,7 +111,7 @@ def read_radar(
     files = [f for f in files if os.path.basename(f) not in drop_files]
 
     if len(files) == 0:
-        return
+        return None
     else:
         print(f"Reading {len(files)} files with dask.")
         if tb_only:
