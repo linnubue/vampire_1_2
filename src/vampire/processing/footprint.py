@@ -68,6 +68,7 @@ def main_vampire_gopro():
     images = imread(files)
 
     # select the time that aligns with radiometers
+    #TODO: That function does not take any input arguments...
     times = get_all_times(sorted(glob(files)))
     ix = np.isin(times, ds.time.values)
     times = times[ix]
@@ -187,7 +188,9 @@ def main_vampire():
     )
     da_corr = da_corr.compute()
     plot_footprint(
-        da_corr, suffix=f"vampire_ir_{pd.Timestamp(date).strftime('%Y%m%d')}"
+        da_corr,
+        suffix=f"vampire_ir_{pd.Timestamp(date).strftime('%Y%m%d')}",
+        label="Your label here"  #TODO: Add label argument
     )
 
     # correlated with rescaled ir image
