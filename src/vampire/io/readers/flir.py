@@ -23,8 +23,6 @@ FLIR formats:
 import xarray as xr
 import os
 import numpy as np
-
-import vampire
 import pandas as pd
 
 

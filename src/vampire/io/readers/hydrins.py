@@ -4,11 +4,8 @@ comes from the ship angle stream.
 """
 
 import os
-
 import pandas as pd
 import xarray as xr
-
-import vampire
 
 
 def read_hydrins_multiple(d0, d1, resolution):

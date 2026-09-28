@@ -5,13 +5,10 @@ Read Mini IMU data.
 import os
 from datetime import timedelta
 from glob import glob
-
 import numpy as np
 import pandas as pd
 import xarray as xr
 from natsort import natsorted
-
-import vampire
 
 
 def read_imu_multiple(d0, d1):
