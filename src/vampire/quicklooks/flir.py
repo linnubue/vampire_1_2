@@ -175,6 +175,10 @@ def quicklook_flir(date, ds, show=True, save=False):
         Date to plot.
     ds : xr.Dataset
         Time series of temperature histograms and statistics.
+    show: bool
+        Show plot? (default: True)
+    save: bool
+        Save plot? (default: False)
     """
 
     date = pd.Timestamp(date)
