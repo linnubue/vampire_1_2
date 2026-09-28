@@ -78,7 +78,6 @@ def running_mean_datetime(x, N, t):
     look_range = int(np.ceil(N/mdt))
     
     # run through the array:
-    look_save = 0
     for k in range(n_x):    # k, t_c in enumerate(t)?
         if k%400000 == 0: print(k/n_x)  # output required to avoid ssh connection to
                                         # be automatically dropped
@@ -102,7 +101,6 @@ def running_mean_datetime(x, N, t):
             look_save = k-look_range
             rm_range = np.argwhere((t[k-look_range:k+look_range] >= t_c_minus) & (t[k-look_range:k+look_range] <= t_c_plus)).flatten() + look_save
         elif k <= look_range:   # lower end of array
-            look_save = 0
             rm_range = np.argwhere((t[:k+look_range] >= t_c_minus) & (t[:k+look_range] <= t_c_plus)).flatten()
         else:   # upper end of array
             look_save = k-look_range
@@ -180,7 +178,6 @@ def running_mean_time_2D(x, N, t, axis=0):
     look_range = int(np.ceil(N/mdt))
     
     # run through the array:
-    look_save = 0
     for k in range(n_x):    # k, t_c in enumerate(t)?
         if k%400000 == 0: print(k/n_x)  # output required to avoid ssh connection to
                                         # be automatically dropped
@@ -200,7 +197,6 @@ def running_mean_time_2D(x, N, t, axis=0):
             look_save = k-look_range
             rm_range = np.argwhere((t[k-look_range:k+look_range] >= t_c_minus) & (t[k-look_range:k+look_range] <= t_c_plus)).flatten() + look_save
         elif k <= look_range:   # lower end of array
-            look_save = 0
             rm_range = np.argwhere((t[:k+look_range] >= t_c_minus) & (t[:k+look_range] <= t_c_plus)).flatten()
         else:   # upper end of array
             look_save = k-look_range

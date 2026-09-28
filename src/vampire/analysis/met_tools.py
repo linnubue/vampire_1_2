@@ -56,7 +56,6 @@ def compute_IWV(
 
     # truncate data to non nan height or pressure levels:
     non_nan_idx = np.where(~np.isnan(z))[0]
-    q = q[non_nan_idx[0]:non_nan_idx[-1]+1]
     z = z[non_nan_idx[0]:non_nan_idx[-1]+1]
 
     # check if height axis is free of gaps:

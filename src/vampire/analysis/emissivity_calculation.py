@@ -3,15 +3,12 @@ import glob
 import os as os
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.dates as mdates
 import matplotlib as matplotlib
 from datetime import datetime
 from PIL import Image
 import seaborn as sns
 from scipy.optimize import curve_fit
 from scipy.stats import norm
-
-
 from vampire.io.readers.mwr import *
 
 fontsizey=24

@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 from vampire.io.readers.flir import read_flir_statistics
 from vampire.quicklooks.flir import (flir_image, get_flir_image, plot_flir_image)
 from vampire.quicklooks.gopro import gopro_image
-from vampire.io.readers.gopro import get_gopro_rescaled_file_data_campaigns
 from vampire.io.readers.ir_targets import read_ir_target_temp_data, event_start_end_times
 from vampire.analysis.data_tools import(write_basic_attributes,
                                         update_netCDF_file_history,
