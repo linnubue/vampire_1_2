@@ -13,10 +13,8 @@ import numpy as np
 import xarray as xr
 from glob import glob
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
 import os
 import matplotlib.dates as mdates
-import vampire
 
 # duration of a calibration with 10 s integration time based on a test scan
 T_10S_CALIBRATION = np.timedelta64(20, "s")
@@ -238,6 +236,7 @@ def main():
     Simulate duration of batch
     """
 
+    #TODO: What is this needed for?
     scans_mirac, scans_hatpro = define_scans()
 
     durations = compute_duration()
