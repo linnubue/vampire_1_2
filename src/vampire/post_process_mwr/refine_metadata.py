@@ -269,7 +269,7 @@ def export_DS(DS: xr.Dataset, path_output: str):
     outfile = path_output + filename
     
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 
@@ -309,7 +309,7 @@ def extract_metadata(metadata: dict, file: str, product: str):
     metadata['end_lat'].append(f"{start_end_lat[-1]:.5f}")
     metadata['end_lon'].append(f"{start_end_lon[-1]:.5f}")
     
-    ds = ds.close()
+    ds.close()
     
     return metadata
 

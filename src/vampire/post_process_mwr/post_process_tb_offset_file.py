@@ -115,7 +115,7 @@ def export_tb_offset_data(
     
     os.makedirs(path_output, exist_ok=True)
     DS.to_netcdf(file_save, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {file_save}")
     
 

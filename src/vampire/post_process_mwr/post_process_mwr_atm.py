@@ -331,7 +331,7 @@ def export_DS(
 
     outfile = path_output + filename.replace("v00", "v01")
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
     

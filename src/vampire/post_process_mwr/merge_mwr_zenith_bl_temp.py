@@ -261,7 +261,7 @@ def export_merged_DS(
     
     outfile = path_output + filename
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 
