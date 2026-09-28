@@ -66,7 +66,7 @@ def main():
     freqs = define_freqs_to_simulate()
 
     if simulate:
-        RS_DS = read_radiosondes(path_data['radiosondes'], date_range=date_range, wind_uv=pamtra_settings['rs_wind'])
+        RS_DS = read_radiosondes(date_range=date_range, wind_uv=pamtra_settings['rs_wind'])
         sonde_dict = prepare_radiosondes_for_pamtra(RS_DS, Constants, interpolate=interpolate)        
         check_for_nans(sonde_dict)
 
