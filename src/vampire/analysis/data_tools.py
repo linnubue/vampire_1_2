@@ -539,7 +539,7 @@ def dec_to_binary_string(data_1d: np.ndarray, max=None):
     E.g., 15 would be '1111' or similar with zero padding '00001111'.
     """
     
-    if max == None:
+    if max is None:
         max = int(np.nanmax(data_1d))
     
     N = int(np.ceil(np.log2(max))) + 2 # + 2 because of '0b'

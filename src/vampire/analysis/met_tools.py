@@ -508,9 +508,8 @@ def potential_temperature(
     """
 
     if press.ndim == 1: # expand press to shape of temp
-        n_press = len(press)
-        
-        if height_axis == None:
+
+        if height_axis is None:
             raise ValueError("Please specify which is the height axis of the temperature data as integer.")
 
         else:
