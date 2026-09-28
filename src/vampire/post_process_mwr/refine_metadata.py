@@ -227,7 +227,7 @@ def correct_metadata(DS: xr.Dataset, product: str):
         DS['flag_bl'].attrs['comment'] = "default_bl_scan: instrument standard used e.g., during transit"
         
     if product == 'temp':
-        DS['flag_usage'].attrs['flag_meanings'] = ("use_temp use_temp_zen")
+        DS['flag_usage'].attrs['flag_meanings'] = "use_temp use_temp_zen"
         DS['flag_usage'].attrs['flag_values'] = np.array([0, 1], dtype=np.short)
     
     return DS
