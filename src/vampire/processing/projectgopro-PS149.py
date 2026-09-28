@@ -120,33 +120,12 @@ def main():
                 im=Image.open(file)
                 if im.mode == "RGB": ##add transparancy channel
                     a_channel = Image.new('L', im.size, 255)   # 'L' 8-bit pixels, black and white 
-                im.putalpha(a_channel)
+                    im.putalpha(a_channel)
                 im = np.asarray(im)
 
                 output_path = f"{out}/{filename[:-4]}_proj.tiff" ##ADAPT to your file structure
-                if overwrite == False:
-                    if os.path.isfile(output_path):
-                        print("file exists already")
-                    else:
-                        j = im.copy()
-                        #make railing transparent, probably you have to play around here with the VAMPIRE2 setting
-                        j[770:,:,3] = 0
-                        j[590:700,790:,3] = 0
-                        j[490:590,890:,3] = 0
-                        j[590:770,880:,3] = 0
-                        j[590:770,750:840,3] = 0
-                        j[740:770,840:880,3] = 0
-
-                        top_im = cam.getTopViewOfImage(j,[-25,15,12,50],do_plot=False) ##actual projection
-                        j = Image.fromarray(top_im)
-                     #   plt.show()
-                        j.convert("RGBA").save(output_path, compression="lzma") ##saves projected image and compresses
-
-                        ##write metadata:
-                        lat_ref = 'N' if lat >= 0 else 'S' 
-                        lon_ref = 'E' if lon >= 0 else 'W'
-                        subprocess.run([ 'exiftool',  f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}', f'-GPSLatitudeRef={lat_ref}', 
-                                        f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original', output_path ], check=True)
+                if os.path.isfile(output_path) and not overwrite:
+                    print("file exists already")
                 else:
                     j = im.copy()
                     #make railing transparent, probably you have to play around here with the VAMPIRE2 setting
@@ -156,15 +135,19 @@ def main():
                     j[590:770,880:,3] = 0
                     j[590:770,750:840,3] = 0
                     j[740:770,840:880,3] = 0
+
                     top_im = cam.getTopViewOfImage(j,[-25,15,12,50],do_plot=False) ##actual projection
                     j = Image.fromarray(top_im)
-                 #   plt.show()
                     j.convert("RGBA").save(output_path, compression="lzma") ##saves projected image and compresses
+
                     ##write metadata:
-                    lat_ref = 'N' if lat >= 0 else 'S' 
+                    lat_ref = 'N' if lat >= 0 else 'S'
                     lon_ref = 'E' if lon >= 0 else 'W'
-                    subprocess.run([ 'exiftool',  f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}', f'-GPSLatitudeRef={lat_ref}', 
-                                    f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original', output_path ], check=True)
+                    subprocess.run(
+                        ['exiftool', f"-AllDates={time_go_pro:%Y:%m:%d %H:%M:%S}", f'-GPSLatitude={abs(lat)}',
+                         f'-GPSLatitudeRef={lat_ref}',
+                         f'-GPSLongitude={abs(lon)}', f'-GPSLongitudeRef={lon_ref}', '-overwrite_original',
+                         output_path], check=True)
 
 if __name__ == "__main__":
     main()
