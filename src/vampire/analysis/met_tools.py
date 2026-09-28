@@ -938,6 +938,7 @@ def Z_from_pres(
             Z[k,idx_not_sub[k][:-1]] = -(1.0/g) * np.cumsum((1/rho[k,idx_not_sub[k][:-1]]) * np.diff(pres[k,idx_not_sub[k]], axis=-1), axis=-1)
             Z[k,idx_not_sub[k][-1]] = (Z[k,idx_not_sub[k][-2]] - (1.0/g) * (1/rho[k,idx_not_sub[k][-1]]) * (pres[k,idx_not_sub[k][-1]] - pres[k,idx_not_sub[k][-2]]))
 
+    #TODO: Finish construction ;)
     1/0 # costruction site
 
     return Z
