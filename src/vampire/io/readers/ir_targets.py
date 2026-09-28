@@ -123,7 +123,7 @@ def read_ir_target_temp_files(files: list):
     for file in files:
         DS = read_ir_target_temp_file(file)
         DS_list.append(DS)
-        DS = DS.close()
+        DS.close()
     
     DS = xr.concat(DS_list, dim='time').sortby('time')
     
