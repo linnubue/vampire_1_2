@@ -92,8 +92,7 @@ def dummy_temp_bl_DS(DS_zen: xr.Dataset):
     DS = DS.isel(time=np.arange(1))
     DS = DS.assign_coords({'time': np.array([np.datetime64("1970-01-01T00:00:00")]).astype('datetime64[ns]')})
 
-    #TODO: this function takes a path argument that is missing here
-    ERROR_DS = load_retrieval_uncertainties(var='temp_bl')
+    ERROR_DS = load_retrieval_uncertainties(os.environ['VAMPIRE_DATA'], var='temp_bl')
     DS = add_retrieval_uncertainties(MWR_DS=DS, ERROR_DS=ERROR_DS, var='temp')
     
     return DS
