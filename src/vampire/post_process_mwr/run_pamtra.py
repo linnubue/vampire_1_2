@@ -118,14 +118,13 @@ def run_pamtra_run(
     # with hydrometeors computed from cwp, iwp, rwp and swp of the testcase:
     # LWP will later be replaced by modified adiabatic computation in clouds
     # detected via 95 % rel. humidity (see /Notes/Miscallaneous/MiRAC-P_retrieval.txt).
-    #TODO: Are those still needed?
     cwc = 0                 # cloud water content
     iwc = 0                 # ice water content
     rwc = 0                 # rain water content
     swc = 0                 # snow water content
 
     shape4d_lay = [1, 1, len(pamData['hgt_lev'])-1, 4]
-    shape3d_lay = [1, 1, len(pamData['hgt_lev'])-1]  #TODO: Is this still needed?
+    shape3d_lay = [1, 1, len(pamData['hgt_lev'])-1]
     pamData['hydro_q'] = np.zeros(shape4d_lay)
     # pamData["hydro_q"][:,:,:,0] = cwc
 
