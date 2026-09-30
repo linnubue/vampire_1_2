@@ -9,7 +9,7 @@ import numpy as np
 import xarray as xr
 
 
-# particle diameter velocity bins (TODO: are these also used for our instrument?)
+# particle diameter velocity bins
 # velocity in m/s
 # diameter in mm
 V_BINS = np.array(
@@ -163,10 +163,6 @@ def read_parsivel(date, to_xarray=True):
         date.strftime("%Y/%m/%d"),
         f"{date.strftime('%Y%m%d')}_vampire.csv",
     )
-
-    #TODO: What is the purpose of this with open statement?
-    with open(file, "rb") as f:
-        line = f.readline()
 
     df = pd.read_csv(file, delimiter=";", encoding="iso-8859-1")
 
