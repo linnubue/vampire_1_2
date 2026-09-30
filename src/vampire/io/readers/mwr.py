@@ -153,7 +153,6 @@ def read_scans(
 
     return dct
 
-#TODO: The docstring does not match the variables
 def read_dual(
     d0,
     d1,
@@ -171,11 +170,11 @@ def read_dual(
 
     Examples:
 
-    - Read emis: read_dual(date, scan="EMIS", keep_mismatch=True, keep_atmos=True)
+    - Read emis: read_dual(d0=datestart, d1=dateend, scan="EMIS", keep_mismatch=True, keep_atmos=True)
 
     Parameters
     ----------
-    date : datetime
+    d0, d1 : datetime
         Observation date.
     keep_atmos : bool
         Keeps the intermediate atmospheric downwelling scan. Default is True.
@@ -291,7 +290,6 @@ def read_dual_single(
 
     return ds
 
-#TODO: The docstring does not match the variables
 def read_scan(
     date,
     instrument,
