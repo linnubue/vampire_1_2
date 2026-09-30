@@ -1,7 +1,7 @@
 LOGBOOK
 =======
 
-*Author(s): #TODO*
+*Author(s): Andreas Walbröl, Linnu Bühler*
 
 All times are in UTC.
 Newest entry is on top.
