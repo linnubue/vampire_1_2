@@ -1,7 +1,7 @@
 Diary
 =====
 
-*Author(s): Linnu Bühler*
+*Author(s): Linnu Bühler, Janna Rückert, Nils Risse*
 
 The diary lists events and activities for each cruise day. These could include:
 
@@ -17,7 +17,7 @@ Abbreviations used:
 - LB: Linnu Bühler
 - NR: Nils Risse
 - JR: Janna Rückert
-- GAIA:
+- GAIA: New integrated experimental and modelling tools for Georeferenced source apportionment of Aerosol climate-relevant parameters from the Mediterranean area till the Arctic
 - IMU: Inertial Measurement Unit
 
 .. image:: img/data_availability.png
@@ -67,7 +67,7 @@ and 10 samples. This could help to identify effect of ship motion.
 - HATPRO/LHUMPRO 07:30 UTC: fixed that LHUMPRO stored data in HATPRO's directory since scan patterns started. Renamed file prefix from EMISSIVITY-SCAN to EMIS-SCAN 
 
 We managed to store all our boxes on blue 
-container on Peildeck (Janna put the key in the cabin of her and Linnea). 
+container on Peildeck (Janna put the key in the cabin of her and Linnu). 
 we now joined forces with sea ice physics team: daily group meeting at 8:45 
 from now on in our office with the view! "Official" start of measurements
 (see table in other file) of the radiometers, radars and FLIR around 19:00 UTC. 
@@ -111,7 +111,7 @@ and changed the noise threshold to 9 (it was 6). That should be enough. He
 couldn't access the G-band. Routine checks revealed that the screws at the 
 poles (Ultrasonic, Parsivel, FLIR) needed to be adjusted. GoPro seems buggy,
 did not start, removing battery worked: from now on always remove battery 
-when exchanging SD cards! Linnea mastered Mobotix which is now recording 
+when exchanging SD cards! Linnu mastered Mobotix which is now recording 
 reasonable images (cronjob saves the current image to nimbus). Nils mastered 
 the Polarstern, good measurements now started at 19:45 UTC. GoPro images are 
 rescaled to reduce file size and saved on external hard disk. Created cronjobs 
