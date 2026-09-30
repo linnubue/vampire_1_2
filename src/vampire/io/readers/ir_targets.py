@@ -67,17 +67,6 @@ def read_ir_target_temp_data(
     
     return DS
 
-#TODO: What is this function for?
-def read_ir_target_service_data(
-    path_data="", 
-    daterange=None,
-    date0=None,
-    date1=None,
-    file_pattern=f"IRtarget___BOX_NO___Service.dat",
-    ):
-    
-    pdb.set_trace()
-
 
 def add_attributes(DS: xr.Dataset):
     
