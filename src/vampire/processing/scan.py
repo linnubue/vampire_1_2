@@ -236,7 +236,6 @@ def main():
     Simulate duration of batch
     """
 
-    #TODO: What is this needed for?
     scans_mirac, scans_hatpro = define_scans()
 
     durations = compute_duration()
