@@ -320,14 +320,11 @@ def plot_IWV_map(save=False, show=True):
     ### IWV time series
     dates = np.array([])
     IWV = []
-    lat = []
-    lon = []
     for i in sonde_dict.keys():
         dates = np.append(
             dates, pd.to_datetime(sonde_dict[i]["launch_time_npdt"])
         )
         IWV = np.append(IWV, sonde_dict[i]["IWV"])
-    IWV_VAMPIRE_radiosondes = pd.DataFrame({"date": dates, "IWV": IWV})
     if save:
         file = os.path.join(
             os.environ["PATH_PLOTS"],

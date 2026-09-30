@@ -4,10 +4,7 @@ Get Mobotix files.
 
 import os
 from glob import glob
-
 import pandas as pd
-
-import vampire
 
 
 def get_mobotix_files():

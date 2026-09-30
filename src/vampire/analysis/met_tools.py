@@ -51,18 +51,17 @@ def compute_IWV(
         # if the pressure data is okay until 300 hPa, compute IWV nonetheless and truncate the
         # profile beyond:
         where_broken = np.where(np.diff(z) < 0)[0]      # when where_broken == 152, then z[153] - z[152] is broken
-        if z[where_broken[0]] < 9000.0: # then, sufficient altitude doesn't have valid data valid data, return IWV=nan
-            return IWV
+        if z[where_broken[0]] < 9000.0: # then, sufficient altitude doesn't have valid data, return IWV=nan
+            return None
 
     # truncate data to non nan height or pressure levels:
     non_nan_idx = np.where(~np.isnan(z))[0]
-    q = q[non_nan_idx[0]:non_nan_idx[-1]+1]
     z = z[non_nan_idx[0]:non_nan_idx[-1]+1]
 
     # check if height axis is free of gaps:
     if np.any(np.isnan(np.diff(z))): 
         print("Height axis contains gaps. Aborted IWV computation.")
-        return IWV
+        return None
 
 
     n_height = len(z)
@@ -426,6 +425,8 @@ def wspeed_wdir_to_u_v(
 
         u = np.sin(wdir_rad)*wspeed
         v = np.cos(wdir_rad)*wspeed
+    else:
+        raise ValueError(f"convention = '{convention}' is not a valid option! Use 'towards' or 'from' instead.")
 
     return u, v
 
@@ -466,11 +467,11 @@ def u_v_to_wspeed_wdir(
         u *= (-1.0)
         v *= (-1.0)
 
-    # distinguish the two semi circles to compute the correct wind direction:
+    # distinguish the two semicircles to compute the correct wind direction:
     u_greater_0 = np.where(u >= 0)[0]
     u_smaller_0 = np.where(u < 0)[0]
 
-    # compute wind direction based on the semi circle:
+    # compute wind direction based on the semicircle:
     wdir = np.zeros(u.shape)
     wdir[u_greater_0] = np.arccos(v[u_greater_0] / wspeed[u_greater_0])
     wdir[u_smaller_0] = 2.0*np.pi - np.arccos(v[u_smaller_0] / wspeed[u_smaller_0])
@@ -509,15 +510,14 @@ def potential_temperature(
     """
 
     if press.ndim == 1: # expand press to shape of temp
-        n_press = len(press)
-        
-        if height_axis == None:
+
+        if height_axis is None:
             raise ValueError("Please specify which is the height axis of the temperature data as integer.")
 
         else:
             # build new shape list
             press_shape_new = list()
-            for k in range(temp.ndim): press_shape_new.append(1)
+            press_shape_new += press_shape_new + [1] * temp.ndim
             press_shape_new[height_axis] = temp.shape[height_axis]
             press = np.reshape(press, press_shape_new)
 
@@ -531,6 +531,9 @@ def potential_temperature(
 
     elif press.shape == temp.shape:
         theta = temp*(press_sfc/press)**(R_d/c_pd)
+
+    else:
+        raise ValueError("Dimensions of pressure and temperature do not match!")
 
     return theta
 
@@ -564,6 +567,9 @@ def e_sat(
     elif which_algo == 'goff_and_gratch':
         e_sat_gg_water = 100 * 1013.246 * 10**(-7.90298*(373.16/temp-1) + 5.02808*np.log10(
                 373.16/temp) - 1.3816e-7*(10**(11.344*(1-temp/373.16))-1) + 8.1328e-3 * (10**(-3.49149*(373.16/temp-1))-1))
+
+    else:
+        raise ValueError(f"which_algo = '{which_algo}' is not a valid option! Use 'hyland_and_wexler' or 'goff_and_gratch' instead.")
 
     return e_sat_gg_water
 
@@ -940,6 +946,7 @@ def Z_from_pres(
             Z[k,idx_not_sub[k][:-1]] = -(1.0/g) * np.cumsum((1/rho[k,idx_not_sub[k][:-1]]) * np.diff(pres[k,idx_not_sub[k]], axis=-1), axis=-1)
             Z[k,idx_not_sub[k][-1]] = (Z[k,idx_not_sub[k][-2]] - (1.0/g) * (1/rho[k,idx_not_sub[k][-1]]) * (pres[k,idx_not_sub[k][-1]] - pres[k,idx_not_sub[k][-2]]))
 
+    #TODO: Finish construction ;)
     1/0 # costruction site
 
     return Z

@@ -1071,7 +1071,7 @@ def plot_all_mwr_surface_observations_visual_hour(
     axkband.legend(fontsize=fontsizelegend, markerscale=mscale)
     if xlim != "default":
         axkband.set_xlim(xlim[0], xlim[1])
-    if vline != False:
+    if vline:
         axkband.vlines(
             [vline],
             np.nanmin(TBs_hatpro[:, :7]),
@@ -1102,7 +1102,7 @@ def plot_all_mwr_surface_observations_visual_hour(
             axvis.set_xticks([])
             axvis.set_yticks([])
             axvis.set_title(f"{time_go_pro[index_colloc]}", fontsize=fontsizey)# {dtimes[idx_colloc]}
-            if footprint==True:
+            if footprint:
                 if cropped:
                     x_min = 483-300
                     x_max=517-300
@@ -1128,7 +1128,7 @@ def plot_all_mwr_surface_observations_visual_hour(
 
             cbar = fig.colorbar(CS, shrink=0.8)
             cbar.ax.set_ylabel('surface temperature (K)', fontsize=fontsizey)
-            if footprint==True:
+            if footprint:
                 x_min = 83
                 x_max=132
                 y_min = 90

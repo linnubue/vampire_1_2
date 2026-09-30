@@ -8,10 +8,7 @@ recent data use ``tools/dship_merge.sh``
 
 import os
 import re
-
 import pandas as pd
-
-import vampire
 
 
 def read_hydrins():

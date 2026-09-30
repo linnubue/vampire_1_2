@@ -91,7 +91,8 @@ def dummy_temp_bl_DS(DS_zen: xr.Dataset):
     for var in ['temp', 'temp_rmse']: DS[var][...] = np.nan
     DS = DS.isel(time=np.arange(1))
     DS = DS.assign_coords({'time': np.array([np.datetime64("1970-01-01T00:00:00")]).astype('datetime64[ns]')})
-    
+
+    #TODO: this function takes a path argument that is missing here
     ERROR_DS = load_retrieval_uncertainties(var='temp_bl')
     DS = add_retrieval_uncertainties(MWR_DS=DS, ERROR_DS=ERROR_DS, var='temp')
     
@@ -260,7 +261,7 @@ def export_merged_DS(
     
     outfile = path_output + filename
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 

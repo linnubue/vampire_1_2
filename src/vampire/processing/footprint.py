@@ -68,6 +68,7 @@ def main_vampire_gopro():
     images = imread(files)
 
     # select the time that aligns with radiometers
+    #TODO: That function does not take any input arguments...
     times = get_all_times(sorted(glob(files)))
     ix = np.isin(times, ds.time.values)
     times = times[ix]
@@ -125,11 +126,6 @@ def main_vampire():
     ds_tb = ds_tb.sel(time=~ds_tb.TBs.isnull().any("number_frequencies"))
 
     ds_ir = read_flir_csv(date, find_times=ds_tb.time.values)       # comment: no longer exists
-
-    time_gopro = get_all_times()
-    gopro_match = np.isin(time_gopro, ds_tb.time.values)
-    time_gopro_match = time_gopro[gopro_match]
-    da_vis = gopro2da(time_gopro_match)
 
     # keep only unique flir times (decimal seconds where dropped)
     _, ix = np.unique(ds_ir["time"].values, return_index=True)
@@ -192,7 +188,9 @@ def main_vampire():
     )
     da_corr = da_corr.compute()
     plot_footprint(
-        da_corr, suffix=f"vampire_ir_{pd.Timestamp(date).strftime('%Y%m%d')}"
+        da_corr,
+        suffix=f"vampire_ir_{pd.Timestamp(date).strftime('%Y%m%d')}",
+        label="Your label here"  #TODO: Add label argument
     )
 
     # correlated with rescaled ir image
@@ -241,7 +239,7 @@ def main():
 
     da_tb = ds.TBs
 
-    da_corr = make_correlation(da_img, da_tb)
+    make_correlation(da_img, da_tb)
 
 
 def gopro2da(times):

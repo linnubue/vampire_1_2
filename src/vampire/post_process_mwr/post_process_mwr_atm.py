@@ -55,7 +55,7 @@ def main():
     path_data = {'mwr_synergy_output': os.environ['VAMPIRE_DATA'] + "mwr_synergy/output/",
                  'hatpro_mwr_pro': os.environ['VAMPIRE_DATA'] + "hatpro/atm/l2/",
                  'ps_track': os.environ['VAMPIRE_DATA'] + "polarstern_track/",
-                 'mwr_synergy_eval': os.environ['VAMPIRE_DATA'] + synergetic_ret_eval_stats/}
+                 'mwr_synergy_eval': os.environ['VAMPIRE_DATA'] + "synergetic_ret_eval_stats/"}
     path_output = os.environ['VAMPIRE_DATA'] + "mwr_synergy/for_publication/"
     
     date_range = np.arange(np.datetime64(Constants.DATE_START),
@@ -331,7 +331,7 @@ def export_DS(
 
     outfile = path_output + filename.replace("v00", "v01")
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
     

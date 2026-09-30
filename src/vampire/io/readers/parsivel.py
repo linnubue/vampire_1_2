@@ -164,6 +164,7 @@ def read_parsivel(date, to_xarray=True):
         f"{date.strftime('%Y%m%d')}_vampire.csv",
     )
 
+    #TODO: What is the purpose of this with open statement?
     with open(file, "rb") as f:
         line = f.readline()
 

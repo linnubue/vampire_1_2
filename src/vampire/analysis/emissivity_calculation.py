@@ -3,15 +3,12 @@ import glob
 import os as os
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.dates as mdates
 import matplotlib as matplotlib
 from datetime import datetime
 from PIL import Image
 import seaborn as sns
 from scipy.optimize import curve_fit
 from scipy.stats import norm
-
-
 from vampire.io.readers.mwr import *
 
 fontsizey=24
@@ -176,17 +173,17 @@ def visualize_emissivities(day,surface_temp_method="flir", x_min =480, x_max= 52
     df_hatpro, df_lhumpro =get_dual_emissivities_whole_day(day,surface_temp_method)
     
     plt.figure(figsize=(12,4))
-    plt.plot(pd.to_datetime(df_hatpro.index), df_hatpro[22.24],"o", label="ϵ at 22.24 GHz")
-    plt.plot(pd.to_datetime(df_lhumpro.index), df_lhumpro[243],"o",label="ϵ at 243 GHz")
+    plt.plot(pd.to_datetime(df_hatpro.index), df_hatpro[freq1],"o", label=f"ϵ at {freq1} GHz")
+    plt.plot(pd.to_datetime(df_lhumpro.index), df_lhumpro[freq2],"o",label=f"ϵ at {freq2} GHz")
     plt.legend()
     #plt.xlim(datetime(2024,8,29,15), datetime(2024,8,30,10))
     #plt.ylim(0.8,1)
     
     plt.figure(figsize=(5,5))
     
-    plt.plot(df_hatpro[22.24],df_lhumpro[243],"o")
-    plt.xlabel("ϵ at 22.24 GHz")
-    plt.ylabel("ϵ at 243 GHz")
+    plt.plot(df_hatpro[freq1],df_lhumpro[freq2],"o")
+    plt.xlabel(f"ϵ at {freq1} GHz")
+    plt.ylabel(f"ϵ at {freq2} GHz")
     plt.show()
     plt.close()
     print("get RGB now")
@@ -204,7 +201,7 @@ def visualize_emissivities(day,surface_temp_method="flir", x_min =480, x_max= 52
     matplotlib.rcParams['ytick.labelsize'] = 16
     matplotlib.rcParams['axes.labelsize' ] = 18
     
-    df = pd.DataFrame({"emi22.24":df_hatpro[22.24],"emi243":df_lhumpro[243], "R":R_values, "G":G_values, "B":B_values, 
+    df = pd.DataFrame({"emi22.24":df_hatpro[freq1],"emi243":df_lhumpro[freq2], "R":R_values, "G":G_values, "B":B_values,
                        "RBratio":R_values/B_values, "GBratio":G_values/B_values,
                        "RminusB": R_values-B_values, "meanRGB":np.mean([R_values, B_values, G_values],axis=0)})
     test = sns.JointGrid(data=df,x=df["emi22.24"], y=df["RBratio"], ratio=2,marginal_ticks=True,xlim=(0.3,1.06),ylim=(0.46,1.05))
@@ -213,7 +210,7 @@ def visualize_emissivities(day,surface_temp_method="flir", x_min =480, x_max= 52
     test.plot_joint( sns.histplot,cbar=True,cbar_kws=dict(extend="max"),cmap="light:#03012d", cbar_ax=cax,bins=40, vmax=70)
                  #  marginal_kws=dict(binwidth=0.01,kde=True, fill=True, kde_kws={"bw_adjust":0.2}))
     test.plot_marginals(sns.histplot, binwidth=0.01,kde=True, fill=True)#, kde_kws={"bw_adjust":0.2})#color="#03012d",
-    test.set_axis_labels("$ϵ$ at 22.24 GHz", 'R:B ratio', fontsize=16)
+    test.set_axis_labels(f"$ϵ$ at {freq1} GHz", 'R:B ratio', fontsize=16)
     #expected=( 0.5, 0.01, 400,0.95,.01,200)#mu1,sigma1,A1,mu2,sigma2,A2)
     
     #x, y = test.ax_marg_x.lines[-1].get_data()
@@ -233,7 +230,7 @@ def visualize_emissivities(day,surface_temp_method="flir", x_min =480, x_max= 52
     test.plot_joint( sns.histplot,cbar=True,cbar_kws=dict(extend="max"),cmap="light:#03012d", cbar_ax=cax,bins=40, vmax=70)
                  #  marginal_kws=dict(binwidth=0.01,kde=True, fill=True, kde_kws={"bw_adjust":0.2}))
     test.plot_marginals(sns.histplot, binwidth=0.01,kde=True, fill=True)#, kde_kws={"bw_adjust":0.2})#color="#03012d",
-    test.set_axis_labels("$ϵ$ at 22.24 GHz", 'R:B ratio', fontsize=16)
+    test.set_axis_labels(f"$ϵ$ at {freq1} GHz", 'R:B ratio', fontsize=16)
     #expected=( 0.5, 0.01, 400,0.95,.01,200)#mu1,sigma1,A1,mu2,sigma2,A2)
     
     #x, y = test.ax_marg_x.lines[-1].get_data()

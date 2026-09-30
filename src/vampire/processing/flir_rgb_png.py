@@ -47,7 +47,6 @@ def process_day(DS: xr.Dataset, date: np.datetime64, path_output: str):
     
     minutes = np.arange(date, date + np.timedelta64(1, "D"), 
                         np.timedelta64(60, "s"))
-    n_minutes = len(minutes)
     for k, minute in enumerate(minutes):
         if k % 60 == 0: print(minute)
         try:

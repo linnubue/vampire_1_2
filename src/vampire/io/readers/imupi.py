@@ -4,7 +4,6 @@ Reader for Raspberry Pi IMU sensor.
 
 import os
 import pandas as pd
-import vampire
 
 
 def read_imupi_multiple(d0, d1):

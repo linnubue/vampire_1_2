@@ -153,7 +153,7 @@ def read_scans(
 
     return dct
 
-
+#TODO: The docstring does not match the variables
 def read_dual(
     d0,
     d1,
@@ -291,7 +291,7 @@ def read_dual_single(
 
     return ds
 
-
+#TODO: The docstring does not match the variables
 def read_scan(
     date,
     instrument,

@@ -3,9 +3,7 @@ Reads ultrasonic data.
 """
 
 import os
-
 import pandas as pd
-import vampire
 import numpy as np
 
 

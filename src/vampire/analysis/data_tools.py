@@ -78,7 +78,6 @@ def running_mean_datetime(x, N, t):
     look_range = int(np.ceil(N/mdt))
     
     # run through the array:
-    look_save = 0
     for k in range(n_x):    # k, t_c in enumerate(t)?
         if k%400000 == 0: print(k/n_x)  # output required to avoid ssh connection to
                                         # be automatically dropped
@@ -102,7 +101,6 @@ def running_mean_datetime(x, N, t):
             look_save = k-look_range
             rm_range = np.argwhere((t[k-look_range:k+look_range] >= t_c_minus) & (t[k-look_range:k+look_range] <= t_c_plus)).flatten() + look_save
         elif k <= look_range:   # lower end of array
-            look_save = 0
             rm_range = np.argwhere((t[:k+look_range] >= t_c_minus) & (t[:k+look_range] <= t_c_plus)).flatten()
         else:   # upper end of array
             look_save = k-look_range
@@ -180,7 +178,6 @@ def running_mean_time_2D(x, N, t, axis=0):
     look_range = int(np.ceil(N/mdt))
     
     # run through the array:
-    look_save = 0
     for k in range(n_x):    # k, t_c in enumerate(t)?
         if k%400000 == 0: print(k/n_x)  # output required to avoid ssh connection to
                                         # be automatically dropped
@@ -200,7 +197,6 @@ def running_mean_time_2D(x, N, t, axis=0):
             look_save = k-look_range
             rm_range = np.argwhere((t[k-look_range:k+look_range] >= t_c_minus) & (t[k-look_range:k+look_range] <= t_c_plus)).flatten() + look_save
         elif k <= look_range:   # lower end of array
-            look_save = 0
             rm_range = np.argwhere((t[:k+look_range] >= t_c_minus) & (t[:k+look_range] <= t_c_plus)).flatten()
         else:   # upper end of array
             look_save = k-look_range
@@ -543,7 +539,7 @@ def dec_to_binary_string(data_1d: np.ndarray, max=None):
     E.g., 15 would be '1111' or similar with zero padding '00001111'.
     """
     
-    if max == None:
+    if max is None:
         max = int(np.nanmax(data_1d))
     
     N = int(np.ceil(np.log2(max))) + 2 # + 2 because of '0b'
@@ -655,7 +651,7 @@ def compute_RMSE_profile(
 
     return np.sqrt(np.nanmean((x - x_o)**2, axis=which_axis))
 
-
+#TODO: compute_stddev is not used inside the function. Can be removed?
 def compute_error_profiles(x, x_o, which_axis=0, height_axis=-1, compute_stddev=False):
     
     """
@@ -687,9 +683,9 @@ def compute_error_profiles(x, x_o, which_axis=0, height_axis=-1, compute_stddev=
     x_o = x_o[no_nan_idx,:]
     x = x[no_nan_idx,:]
 
-    error_dict['rmse'] = compute_RMSE_profile(x, x_o, which_axis=0)
+    error_dict['rmse'] = compute_RMSE_profile(x, x_o, which_axis=which_axis)
     error_dict['bias'] = np.nanmean(x - x_o, axis=0)
-    error_dict['stddev'] = compute_RMSE_profile(x - error_dict['bias'], x_o, which_axis=0)
+    error_dict['stddev'] = compute_RMSE_profile(x - error_dict['bias'], x_o, which_axis=which_axis)
 
     x_mean = np.nanmean(x_o, axis=0)
     error_dict['rmse_rel'] = error_dict['rmse'] / x_mean
@@ -837,6 +833,7 @@ def interp_w_avg(
                         else:
                             print("data_tools.py.interp_w_avg: Skipping height level")
                             continue        # skip this height level because no data seems to be available
+                            #TODO: Is this Error still needed? Because it can't be reached being placed after the continue statement
                             raise RuntimeError("It seems like the target height grid contains height levels at " +
                                                 "its lower boundary that are not included in the base height grid. " +
                                                 "Please provide a target height grid whose lower boundary is at or " +

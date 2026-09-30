@@ -5,7 +5,7 @@ import pdb
 import xarray as xr
 import numpy as np
 
-from vampire.analysis.data_tools import write_basic_attributes, encode_time, update_netCDF_file_history
+from vampire.analysis.data_tools import encode_time, update_netCDF_file_history
 
 
 def main():
@@ -97,7 +97,7 @@ def export_ds(ds: xr.Dataset, path_output: str, campaign_name="PS144"):
     filename = f"{campaign_name}_flir_tb_statistics_{date_str.replace('-','')}"
     outfile = os.path.join(path_output, filename + ".nc")
     ds.to_netcdf(outfile, mode='w', format="NETCDF4")
-    ds = ds.close()
+    ds.close()
     print(f"Saved {outfile}....")
 
 

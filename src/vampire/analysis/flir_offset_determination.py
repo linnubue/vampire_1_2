@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 from vampire.io.readers.flir import read_flir_statistics
 from vampire.quicklooks.flir import (flir_image, get_flir_image, plot_flir_image)
 from vampire.quicklooks.gopro import gopro_image
-from vampire.io.readers.gopro import get_gopro_rescaled_file_data_campaigns
 from vampire.io.readers.ir_targets import read_ir_target_temp_data, event_start_end_times
 from vampire.analysis.data_tools import(write_basic_attributes,
                                         update_netCDF_file_history,
@@ -251,7 +250,7 @@ def add_flir_TBs(surface_temp_ds: xr.Dataset, dates_icestation: list, campaign_n
         tb_mean = flir_ds.tb_mean.values[index_colloc]
         tb_std = flir_ds.tb_std.values[index_colloc]
 
-        flir_ds = flir_ds.close()
+        flir_ds.close()
         surface_temp_ds["tb_flir_center"][k] = tb
         surface_temp_ds["tb_flir_mean"][k] = tb_mean
         surface_temp_ds["tb_flir_std"][k] = tb_std
@@ -737,7 +736,7 @@ def flir_image_target_tb(FLIR_STAT_DS: xr.Dataset, lookup_times: np.ndarray, eve
             try:
                 FLIR_TEMP_DS['tb_q75'][k] = flir_img_sel.quantile(0.75).item()
             except:
-                pdb.set_trace()
+                pdb.set_trace()  #TODO: Is this still needed?
     
     return FLIR_TEMP_DS
 
@@ -1112,7 +1111,7 @@ def export_offset_ds(DS: xr.Dataset, path_output: str, campaign_name: str):
     outfile = path_output + filename
     
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 

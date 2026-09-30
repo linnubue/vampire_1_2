@@ -66,14 +66,13 @@ def main():
     freqs = define_freqs_to_simulate()
 
     if simulate:
-        RS_DS = read_radiosondes(path_data['radiosondes'], date_range=date_range, wind_uv=pamtra_settings['rs_wind'])
+        RS_DS = read_radiosondes(date_range=date_range, wind_uv=pamtra_settings['rs_wind'])
         sonde_dict = prepare_radiosondes_for_pamtra(RS_DS, Constants, interpolate=interpolate)        
         check_for_nans(sonde_dict)
 
         for sonde_data in sonde_dict.values():
-            pam = run_pamtra_run(sonde_data, freqs[freq_label], path_pam_output[freq_label], **pamtra_settings)
-        print("Simulations are done. Activating self destruct.")
-        1/0
+            run_pamtra_run(sonde_data, freqs[freq_label], path_pam_output[freq_label], **pamtra_settings)
+        sys.exit("Simulations are done. Activating self destruct. Exit code:0")
     
     compare_simulated_and_observed_tbs(path_data, path_pam_output, path_output, path_plot, campaign, mwr_version,
                                        Constants,

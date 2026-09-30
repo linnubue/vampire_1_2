@@ -227,7 +227,7 @@ def correct_metadata(DS: xr.Dataset, product: str):
         DS['flag_bl'].attrs['comment'] = "default_bl_scan: instrument standard used e.g., during transit"
         
     if product == 'temp':
-        DS['flag_usage'].attrs['flag_meanings'] = ("use_temp use_temp_zen")
+        DS['flag_usage'].attrs['flag_meanings'] = "use_temp use_temp_zen"
         DS['flag_usage'].attrs['flag_values'] = np.array([0, 1], dtype=np.short)
     
     return DS
@@ -269,7 +269,7 @@ def export_DS(DS: xr.Dataset, path_output: str):
     outfile = path_output + filename
     
     DS.to_netcdf(outfile, mode='w', format="NETCDF4")
-    DS = DS.close()
+    DS.close()
     print(f"Saved {outfile}....")
 
 
@@ -309,7 +309,7 @@ def extract_metadata(metadata: dict, file: str, product: str):
     metadata['end_lat'].append(f"{start_end_lat[-1]:.5f}")
     metadata['end_lon'].append(f"{start_end_lon[-1]:.5f}")
     
-    ds = ds.close()
+    ds.close()
     
     return metadata
 
