@@ -736,7 +736,7 @@ def flir_image_target_tb(FLIR_STAT_DS: xr.Dataset, lookup_times: np.ndarray, eve
             try:
                 FLIR_TEMP_DS['tb_q75'][k] = flir_img_sel.quantile(0.75).item()
             except:
-                pdb.set_trace()  #TODO: Is this still needed?
+                pdb.set_trace()
     
     return FLIR_TEMP_DS
 
