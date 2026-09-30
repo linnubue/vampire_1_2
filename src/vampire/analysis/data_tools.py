@@ -651,8 +651,7 @@ def compute_RMSE_profile(
 
     return np.sqrt(np.nanmean((x - x_o)**2, axis=which_axis))
 
-#TODO: compute_stddev is not used inside the function. Can be removed?
-def compute_error_profiles(x, x_o, which_axis=0, height_axis=-1, compute_stddev=False):
+def compute_error_profiles(x, x_o, which_axis=0, height_axis=-1):
     
     """
     Compute RMSE, bias and standard deviation profiles of data x with respect to a reference x_o.
@@ -833,11 +832,6 @@ def interp_w_avg(
                         else:
                             print("data_tools.py.interp_w_avg: Skipping height level")
                             continue        # skip this height level because no data seems to be available
-                            #TODO: Is this Error still needed? Because it can't be reached being placed after the continue statement
-                            raise RuntimeError("It seems like the target height grid contains height levels at " +
-                                                "its lower boundary that are not included in the base height grid. " +
-                                                "Please provide a target height grid whose lower boundary is at or " +
-                                                "above the lower boundary of the base height grid.")
 
 
                     # check next layer and concat to idx_lay:
